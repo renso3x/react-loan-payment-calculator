@@ -1,24 +1,34 @@
+import './styles/App.css'
+
+import { Form } from './components/form';
+import { Header } from './components/header';
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Results } from './components/results';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <header>
+          <Header />
+        </header>
+        <main>
+          <section>
+            <div className="info">
+              This is a <span className="highlight"> Simple Intereset Loan Payment Calculator</span>. This calculator will help you determine the monthly payment on a loan. Simply enter the loan amount, term and interest rate in the fields below and click calculate
+            </div>
+          </section>
+
+          <section>
+            <div className='row'>
+              <div className="col col-1">
+                <Form />
+              </div>
+              <div className='col col-2'>
+                <Results />
+              </div>
+            </div>
+          </section>
+        </main>
     </div>
   );
 }
