@@ -1,11 +1,22 @@
 import './styles/App.css'
 
+import { AppContext } from './context';
 import { Form } from './components/form';
 import { Header } from './components/header';
-import React from 'react';
+import { IState } from './model';
 import { Results } from './components/results';
+import { useState } from 'react';
+
+const initalState: IState = {
+  principalAmount: 0,
+  interestAmount: 0,
+  totalAmount: 0,
+  monthlyPayment: 0,
+  currency: '$'
+}
 
 function App() {
+  const [state, dispatch] = useState(initalState)
   return (
     <div className="App">
         <header>
@@ -18,16 +29,19 @@ function App() {
             </div>
           </section>
 
-          <section>
-            <div className='row'>
-              <div className="col col-1">
-                <Form />
+          <AppContext.Provider value={{ state, dispatch }}>
+            <section>
+              <div className='row'>
+                <div className="col col-1">
+                  <Form />
+                </div>
+                <div className='col col-2'>
+                  <Results />
+                </div>
               </div>
-              <div className='col col-2'>
-                <Results />
-              </div>
-            </div>
-          </section>
+            </section>
+          </AppContext.Provider>
+
         </main>
     </div>
   );
