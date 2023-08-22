@@ -1,8 +1,10 @@
 import '../styles/Form.css'
 
-import React, { ChangeEvent, useContext, useState } from 'react'
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
 
 import { AppContext } from '../context';
+import { IValues } from '../model';
+import { calculatePayment } from '../functions/function';
 
 export const Form = () => {
     const { state, dispatch } = useContext(AppContext)
@@ -30,7 +32,27 @@ export const Form = () => {
         setloanTermInMonths(termInMonts)
     }
 
-    const calculateMonthlyPayment = () => {}
+    const calculateMonthlyPayment = () => {
+        const values: IValues = {
+            principal,
+            loanTermInYears,
+            loanTermInMonths,
+            interestRate
+        }
+        const {principalAmount, interestAmount, totalAmount, monthlyPayment} = calculatePayment(values)
+
+        dispatch(prevState => ({
+            ...prevState,
+            principalAmount,
+            interestAmount,
+            totalAmount,
+            monthlyPayment
+        }))
+    }
+
+    useEffect(() => {
+        calculateMonthlyPayment()
+    }, [])
 
     return (
         <div className="form">

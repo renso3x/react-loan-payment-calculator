@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 
-export interface Ivalues {
+export interface IValues {
     principal: number;
-    loadnTermInYears: number;
+    loanTermInYears: number;
     loanTermInMonths: number;
     interestRate: number;
 }
