@@ -1,6 +1,6 @@
 import '../styles/Form.css'
 
-import React, { useContext, useState } from 'react'
+import React, { ChangeEvent, useContext, useState } from 'react'
 
 import { AppContext } from '../context';
 
@@ -13,11 +13,22 @@ export const Form = () => {
     const [interestRate, setInterestRate] = useState<number>(6.5)
 
 
-    const handleLoanTermsInYears = () => {}
+    const handleLoanTermsInYears = (e: ChangeEvent<HTMLInputElement>) => {
+        const termInYears: number = Number(e.target.value)
+        const termInMonths = termInYears * 12
+        setLoanTerms(termInYears, termInMonths)
+    }
 
-    const handleLoanTermsInMonths = () => {}
+    const handleLoanTermsInMonths = (e: ChangeEvent<HTMLInputElement>) => {
+        const termInMonths: number = Number(e.target.value)
+        const termInYears = termInMonths  / 12
+        setLoanTerms(termInYears, termInMonths)
+    }
 
-    const setLoanTerms = (termInYears: number, termInMonts: number) => {}
+    const setLoanTerms = (termInYears: number, termInMonts: number) => {
+        setloanTermInYears(termInYears)
+        setloanTermInMonths(termInMonts)
+    }
 
     const calculateMonthlyPayment = () => {}
 
@@ -54,7 +65,7 @@ export const Form = () => {
                     id="loanTermYears"
                     placeholder="E.g 4"
                     value={loanTermInYears}
-                    onChange={(e) => setloanTermInYears(Number(e.target.value))}
+                    onChange={(e) => handleLoanTermsInYears(e)}
                 />
             </div>
             <div className="form-item">
@@ -64,7 +75,7 @@ export const Form = () => {
                     id="loanTermMonths"
                     placeholder="E.g 48"
                     value={loanTermInMonths}
-                    onChange={(e) => setloanTermInMonths(Number(e.target.value))}
+                    onChange={(e) => handleLoanTermsInMonths(e)}
                 />
             </div>
             <div className="form-item interest-rate">
